@@ -20,9 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //Rutas publicas
-Route::post('/registro', [AuthController::class, 'registro']);
-Route::post('/iniciarSesion', [AuthController::class, 'iniciarSesion']);
-Route::post('/cerrarSesion', [AuthController::class, 'cerrarSesion']);
+Route::post('registro', 'App\Http\Controllers\AuthController@registro');
+Route::post('iniciarSesion', [AuthController::class, 'iniciarSesion']);
+Route::post('cerrarSesion', [AuthController::class, 'cerrarSesion']);
 
 // Rutas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {

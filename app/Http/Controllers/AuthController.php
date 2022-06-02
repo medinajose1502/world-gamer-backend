@@ -9,17 +9,27 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function registrar(Request $request){
+    public function registro(Request $request){
         $fields = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:user,email',
-            'password' => 'required|string|confirmed'
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|confirmed',
+            'telefono' => 'required',
+            'direccion' => 'required',
+            'gustos' => 'required',
+            'imagen' => 'required',
+            'estado' => 'required'
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
+            'password' => bcrypt($fields['password']),
+            'telefono' => $fields['telefono'],
+            'direccion' => $fields['direccion'],
+            'gustos' => $fields['gustos'],
+            'imagen' => $fields['imagen'],
+            'estado' => $fields['estado']
         ]);
 
         $token = $user->createToken('world-gamer-token')->plainTextToken;
