@@ -11,11 +11,11 @@ class AuthController extends Controller
 {
     public function registro(Request $request){
         $fields = $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:users,name',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed',
             'telefono' => 'required',
-            'direccion' => 'required',
+            'bio' => 'required',
             'gustos' => 'required',
             'imagen' => 'required',
             'estado' => 'required'
@@ -26,7 +26,7 @@ class AuthController extends Controller
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
             'telefono' => $fields['telefono'],
-            'direccion' => $fields['direccion'],
+            'bio' => $fields['bio'],
             'gustos' => $fields['gustos'],
             'imagen' => $fields['imagen'],
             'estado' => $fields['estado']
@@ -57,7 +57,7 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        $user = User::where('email', fields['email'])->first();
+        $user = User::where('email', $fields['email'])->first();
         if(!$user || !Hash::check($fields['password'], $user->password)){
             $response = [
                 'mensaje' => 'Este email no está registrado o la contraseña es erronea, intenta de nuevo.'
