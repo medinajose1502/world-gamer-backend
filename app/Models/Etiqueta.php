@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Etiqueta extends Model
+{
+    use HasFactory;
+    protected $fillable=['etiqueta', 'estado'];
+
+    public function etiquetaPublicacion(){
+        return $this-> hasMany(EtiquetaPublicacion::class);
+    }
+}
