@@ -9,7 +9,7 @@ use App\Models\Publicacion;
 class ComentarioController extends Controller
 {
     public function dePublicacion($id) {
-        $comentarios = Comentario::where(publicacion_id,$id)->get();
+        $comentarios = Comentario::where('publicacion_id',$id)->get();
         return response()->json($comentarios, 200);
     }
     

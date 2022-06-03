@@ -24,6 +24,11 @@ class MeGustaController extends Controller
 
         return response()->json($publicaciones, 200);
     }
+
+    public function dePublicacion($id){
+        $megusta = MeGusta::where('publicacion_id',$id)->get();
+        return response()->json($megusta, 200);
+    }
         
     public function crear(Request $request) {
         $meGusta = MeGusta::create($request->all());
