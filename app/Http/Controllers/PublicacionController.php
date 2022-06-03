@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Publicacion;
+use App\Models\Amistad;
+use Illuminate\Support\Facades\Auth;
 
 class PublicacionController extends Controller
 {
@@ -33,4 +35,44 @@ class PublicacionController extends Controller
         $publicacion->delete;
         return response()->json($publicacion, 204);
     }
+
+    public function deUsuario($id){
+        $publicaciones = Publicacion::where('user_id', $id)->where('estado','1')->get();
+        return response()->json($publicaciones, 200);
+    }
+
+    public function mias(){
+        $publicaciones = Publicacion::where('user_id', Auth::id())->where('estado','1')->get();
+        return response()->json($publicaciones, 200);
+    }
+
+    public function feed(){
+
+        //Obtener amigos del usuario
+        $usuario = Auth::id();
+        $amigos_user_id = Amistad::where('user_id',$usuario)->where('estado','A')->get();
+        $amigos_amigo_id = Amistad::where('amigo_id',$usuario)->where('estado','A')->get();
+        $amigos = array();    
+        foreach($amigos_user_id as $amigo){
+            array_push($amigos,$amigo->amigo_id);
+        }
+        foreach($amigos_amigo_id as $amigo){
+            array_push($amigos,$amigo->user_id);
+        }
+        array_push($amigos,$usuario);
+
+        //Usuario y amigos están cargados en el arreglo de $amigos.
+
+        $publicacionesFeed = collect([]);
+        foreach($amigos as $amigo){
+            $publicacionesAmigo = Publicacion::where('user_id', $amigo);
+            foreach ($publicacionesAmigo as $pubs){
+                $publicacionesFeed->prepend($pubs);
+            }
+        }
+
+        $sorted = $publicacionesFeed->sortBy('created_at');
+        return response($sorted, 200);
+    }
 }
+

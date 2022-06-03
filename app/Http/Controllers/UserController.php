@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
 {
+    public function yo(){
+        $user = User::find(Auth::id());
+        return response($user,200);
+    }
+
     public function todos() {
         $users = User::all();
-        return response()->json($useres, 200);
+        return response()->json($users, 200);
     }
     
     public function mostrar($id){

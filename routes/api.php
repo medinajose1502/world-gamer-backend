@@ -28,6 +28,9 @@ Route::post('cerrarSesion', [AuthController::class, 'cerrarSesion']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
     //Rutas de publicaciones
+    Route::get('publicaciones/feed', 'App\Http\Controllers\PublicacionController@feed');
+    Route::get('publicaciones/usuario/yo', 'App\Http\Controllers\PublicacionController@mias');
+    Route::get('publicaciones/usuario/{id}', 'App\Http\Controllers\PublicacionController@deUsuario');
     Route::get('publicaciones', 'App\Http\Controllers\PublicacionController@todas');
     Route::get('publicaciones/{id}', 'App\Http\Controllers\PublicacionController@mostrar');
     Route::post('publicaciones', 'App\Http\Controllers\PublicacionController@crear');
@@ -35,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('publicaciones/{id}', 'App\Http\Controllers\PublicacionController@eliminar');
     
     //Rutas de usuarios
+    Route::get('usuarios/yo','App\Http\Controllers\UserController@yo');
     Route::get('usuarios', 'App\Http\Controllers\UserController@todos');
     Route::get('usuarios/{id}', 'App\Http\Controllers\UserController@mostrar');
     Route::post('usuarios', 'App\Http\Controllers\UserController@crear');
@@ -77,4 +81,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('notificaciones', 'App\Http\Controllers\NotificacionController@crear');
     Route::delete('notificaciones/{id}', 'App\Http\Controllers\NotificacionController@eliminar');
 });
-
