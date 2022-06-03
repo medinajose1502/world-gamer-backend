@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -43,8 +44,8 @@ class AuthController extends Controller
     }
 
     public function cerrarSesion(Request $request) {
-        auth()->user()->tokens()->delete();
-
+        $user = User::findOrFail(Auth::id());
+        $user->tokens()->delete();
         $response = [
             'mensaje' => 'Ha cerrado sesión exitosamente.'
         ];

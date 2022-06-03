@@ -26,16 +26,28 @@ Route::post('cerrarSesion', [AuthController::class, 'cerrarSesion']);
 
 // Rutas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
-
+    
     //Rutas de publicaciones
     Route::get('publicaciones', 'App\Http\Controllers\PublicacionController@todas');
     Route::get('publicaciones/{id}', 'App\Http\Controllers\PublicacionController@mostrar');
     Route::post('publicaciones', 'App\Http\Controllers\PublicacionController@crear');
     Route::put('publicaciones/{id}', 'App\Http\Controllers\PublicacionController@actualizar');
     Route::delete('publicaciones/{id}', 'App\Http\Controllers\PublicacionController@eliminar');
-
-    //Rutas para subir imágenes
+    
+    //Rutas de usuarios
+    Route::get('usuarios', 'App\Http\Controllers\UserController@todos');
+    Route::get('usuarios/{id}', 'App\Http\Controllers\UserController@mostrar');
+    Route::post('usuarios', 'App\Http\Controllers\UserController@crear');
+    Route::put('usuarios/{id}', 'App\Http\Controllers\UserController@actualizar');
+    Route::delete('usuarios/{id}', 'App\Http\Controllers\UserController@eliminar');
+    
+        //Rutas para subir imágenes
     Route::post('imagen/perfil', 'App\Http\Controllers\ImagenController@perfil');
     Route::post('imagen/publicacion', 'App\Http\Controllers\ImagenController@publicacion');
+    
+    //Rutas de amigos
+    Route::get('amigos/agregar', 'App\Http\Controllers\AmistadController@agregarAmigo');
+    Route::get('amigos/consultar', 'App\Http\Controllers\AmistadController@consultarAmigos');
+    
 });
 
