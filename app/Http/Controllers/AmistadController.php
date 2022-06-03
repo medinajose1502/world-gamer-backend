@@ -51,7 +51,4 @@ class AmistadController extends Controller
             }
             
     }
-    
-    
-    
 }
