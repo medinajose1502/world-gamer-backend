@@ -13,12 +13,23 @@ class Publicacion extends Model
         'descripcion','imagen','nro_likes','nro_comentarios','isLiked','isFavorite','estado','user_id', 'etiquetas'
     ];
 
+    protected $with = ['user'];
+
     public function user()
     {
         return  $this->belongsTo(User::class);
     }
 
-    public function etiquetaPublicacion(){
-        return $this-> hasMany(EtiquetaPublicacion::class);
+    public function comentarios(){
+        return $this->hasMany(Comentario::class);
     }
+
+    public function megusta(){
+        return $this->hasMany(MeGusta::class);
+    }
+
+    public function favorito(){
+        return $this->hasMany(Favorito::class);
+    }
+
 }
