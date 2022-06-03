@@ -10,7 +10,7 @@ class Publicacion extends Model
     use HasFactory;
     
     protected $fillable = [
-        'descripcion','imagen','nro_likes','nro_comentarios','isLiked','isFavorite','estado','user_id'
+        'descripcion','imagen','nro_likes','nro_comentarios','isLiked','isFavorite','estado','user_id', 'etiquetas'
     ];
 
     public function user()
