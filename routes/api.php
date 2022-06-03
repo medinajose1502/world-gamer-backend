@@ -53,18 +53,24 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('favoritos', 'App\Http\Controllers\FavoritoController@misFavoritos');
     Route::get('favoritos/{id}', 'App\Http\Controllers\MeGustaController@mostrar');
     Route::post('favoritos', 'App\Http\Controllers\FavoritoController@crear');
-    Route::delete('favoritos', 'App\Http\Controllers\FavoritoController@eliminar');
+    Route::delete('favoritos/{id}', 'App\Http\Controllers\FavoritoController@eliminar');
 
     //Rutas de publicaciones megusta
     Route::get('megusta', 'App\Http\Controllers\MeGustaController@misMeGusta');
     Route::get('megusta/{id}', 'App\Http\Controllers\MeGustaController@mostrar');
     Route::post('megusta', 'App\Http\Controllers\MeGustaController@crear');
-    Route::delete('megusta', 'App\Http\Controllers\MeGustaController@eliminar');
+    Route::delete('megusta/{id}', 'App\Http\Controllers\MeGustaController@eliminar');
 
     //Rutas de publicaciones comentarios
     Route::get('comentarios/publicacion/{id}', 'App\Http\Controllers\ComentarioController@dePublicacion');
     Route::get('comentarios/{id}', 'App\Http\Controllers\ComentarioController@mostrar');
     Route::post('comentarios', 'App\Http\Controllers\ComentarioController@crear');
-    Route::delete('comentarios', 'App\Http\Controllers\ComentarioController@eliminar');
+    Route::delete('comentarios/{id}', 'App\Http\Controllers\ComentarioController@eliminar');
+
+    //Rutas de publicaciones notificaciones
+    Route::get('notificaciones', 'App\Http\Controllers\NotificacionController@deUsuario');
+    Route::get('notificaciones/{id}', 'App\Http\Controllers\NotificacionController@mostrar');
+    Route::post('notificaciones', 'App\Http\Controllers\NotificacionController@crear');
+    Route::delete('notificaciones/{id}', 'App\Http\Controllers\NotificacionController@eliminar');
 });
 
