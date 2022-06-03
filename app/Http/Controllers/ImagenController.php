@@ -19,19 +19,19 @@ class ImagenController extends Controller
         }
 
         if($file = $request->file('file')){
-            $file = $request->file->store('public/perfiles');
+            $file = $request->file->store('public');
 
             $user = User::findOrFail(Auth::id());
             $user->imagen = $file;
             $user->save();
+
+            $file = str_replace("public/", "https://medinajosedev.com/public/storage/", $file);
 
             return response()->json([
                 'mensaje' => 'La imagen fue subida con éxito.',
                 'file' => $file
             ]);
         }
-
-
     }
 
     public function publicacion(Request $request){
@@ -45,8 +45,8 @@ class ImagenController extends Controller
         }
 
         if($file = $request->file('file')){
-            $file = $request->file->store('public/publicacion');
-
+            $file = $request->file->store('public');
+            $file = str_replace("public/", "https://medinajosedev.com/public/storage/", $file);
             return response()->json([
                 'mensaje' => 'La imagen fue subida con éxito.',
                 'file' => $file
