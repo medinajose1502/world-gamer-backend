@@ -62,7 +62,6 @@ class PublicacionController extends Controller
         array_push($amigos,$usuario);
 
         //Usuario y amigos están cargados en el arreglo de $amigos.
-
         $publicacionesFeed = collect([]);
         foreach($amigos as $amigo){
             $publicacionesAmigo = Publicacion::where('user_id', $amigo);
@@ -70,7 +69,6 @@ class PublicacionController extends Controller
                 $publicacionesFeed->prepend($pubs);
             }
         }
-
         $sorted = $publicacionesFeed->sortBy('created_at');
         return response($sorted, 200);
     }

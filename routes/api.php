@@ -68,6 +68,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('megusta/{id}', 'App\Http\Controllers\MeGustaController@mostrar');
     Route::post('megusta', 'App\Http\Controllers\MeGustaController@crear');
     Route::delete('megusta/{id}', 'App\Http\Controllers\MeGustaController@eliminar');
+    Route::get('megusta/usuario/publicacion/{id}', 'App\Http\Controllers\MeGustaController@leGustaPublicacion');
+
 
     //Rutas de comentarios
     Route::get('comentarios/publicacion/{id}', 'App\Http\Controllers\ComentarioController@dePublicacion');
