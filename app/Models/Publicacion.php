@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Publicacion extends Model
 {
@@ -14,6 +15,14 @@ class Publicacion extends Model
     ];
 
     protected $with = ['user'];
+
+    public function getNroComentariosAttribute(){
+        return $this->hasMany(Comentario::class)->count();
+    }
+    
+    public function getNroLikesAttribute(){
+        return $this->hasMany(MeGusta::class)->count();
+    }
 
     public function user()
     {
@@ -31,5 +40,4 @@ class Publicacion extends Model
     public function favorito(){
         return $this->hasMany(Favorito::class);
     }
-
 }

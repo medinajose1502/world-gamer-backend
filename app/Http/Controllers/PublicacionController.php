@@ -75,4 +75,3 @@ class PublicacionController extends Controller
         return response($sorted, 200);
     }
 }
-
