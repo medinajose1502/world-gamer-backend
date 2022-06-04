@@ -24,6 +24,14 @@ class FavoritoController extends Controller
 
         return response()->json($publicaciones, 200);
     }
+
+    public function leFavoritoPublicacion($id){
+        $favorito = Favorito::where('publicacion_id',$id)->first();
+        if($favorito)
+            return response()->json(true, 200);
+        else
+            return response()->json(false, 200);
+    }
     
     public function mostrar($id){
         $favorito = Favorito::find($id);

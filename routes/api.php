@@ -58,9 +58,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     //Rutas de favoritos
     Route::get('favoritos', 'App\Http\Controllers\FavoritoController@misFavoritos');
-    Route::get('favoritos/{id}', 'App\Http\Controllers\MeGustaController@mostrar');
+    Route::get('favoritos/{id}', 'App\Http\Controllers\FavoritoController@mostrar');
     Route::post('favoritos', 'App\Http\Controllers\FavoritoController@crear');
     Route::delete('favoritos/{id}', 'App\Http\Controllers\FavoritoController@eliminar');
+    Route::get('favoritos/usuario/publicacion/{id}', 'App\Http\Controllers\FavoritoController@leFavoritoPublicacion');
 
     //Rutas de megusta
     Route::get('megusta/publicacion/{id}', 'App\Http\Controllers\MeGustaController@dePublicacion');
