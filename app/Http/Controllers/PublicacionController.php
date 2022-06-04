@@ -20,7 +20,17 @@ class PublicacionController extends Controller
     }
     
     public function crear(Request $request) {
-        $publicacion = Publicacion::create($request->all());
+        $publicacion = Publicacion::create([
+            'descripcion' => $request->descripcion,
+            'imagen'=> $request->imagen,
+            'nro_likes'=> $request->nro_likes,
+            'nro_comentarios'=> $request->nro_comentarios,
+            'isLiked' => false,
+            'isFavorite'=> false,
+            'estado'=> 'A',
+            'user_id'=> Auth::id(),
+            'etiquetas'=> $request->etiquetas
+        ]);
         return response()->json($publicacion, 201);
     }
     
@@ -43,6 +53,11 @@ class PublicacionController extends Controller
 
     public function mias(){
         $publicaciones = Publicacion::where('user_id', Auth::id())->where('estado','1')->get();
+        return response()->json($publicaciones, 200);
+    }
+
+    public function buscar(Request $request){
+        $publicaciones = Publicacion::where('descripcion','ilike','%'. $request->busqueda .'%')->orWhere('etiquetas','ilike','%'. $request->busqueda. '%')->get();
         return response()->json($publicaciones, 200);
     }
 
